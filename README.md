@@ -65,26 +65,16 @@ This wasn't just run against the mocked demo — it was validated against a
 real (deliberately misconfigured) test bucket on AWS:
 
 **Before remediation:**
-```
-priyansh-test-audit-2026  [HIGH]
-  [MEDIUM] Block Public Access is not fully enabled on this bucket
-  [HIGH] Bucket policy allows public access with no restricting condition (statement: PublicRead)
-  [LOW] Versioning is not enabled
-  [LOW] Access logging is not enabled
-```
+
+![Scan showing HIGH risk findings before remediation](docs/screenshots/before-remediation.png)
 
 **After running `--remediate`:**
-```
-priyansh-test-audit-2026  [HIGH]
-  [HIGH] Bucket policy allows public access with no restricting condition (statement: PublicRead)
-  [LOW] Versioning is not enabled
-  [LOW] Access logging is not enabled
-```
+
+![Scan showing Block Public Access finding cleared after remediation](docs/screenshots/after-remediation.png)
 
 The Block Public Access finding clears after remediation; the bucket policy
 finding correctly remains, since remediation only ever touches Block Public
-Access — never bucket policies — by design. See `docs/screenshots/` for the
-original terminal captures.
+Access — never bucket policies — by design.
 
 One real finding worth calling out from testing: attempting remediation
 *before* attaching the separate remediate IAM policy correctly failed with
